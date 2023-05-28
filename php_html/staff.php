@@ -9,13 +9,8 @@
 </head>
 <body>
     <?php 
-        $conn = mysqli_connect("localhost:3306", "web", "web_admin", "hospital"); 
-        if(!$conn){
-            echo "Database Connection Error";
-        }
-        else{
-            echo "Database Connection Success";
-        }
+        // $conn = mysqli_connect("localhost:3306", "web", "web_admin", "hospital"); 
+        $conn = mysqli_connect("localhost", "root", "", "hospital"); 
 
         if(mysqli_connect_errno()){
             echo "Could not connect: ".mysqli_connect_error();
@@ -47,7 +42,6 @@
 		<div class="container">
 			<section class="title">
 			<p>데이터베이스 (2분반) 6조</p>
-			<!-- <?php echo $_GET['name']?> -->
 			<p>분석 보고서</p>
 			</section>
 			<div id="line"></div>
