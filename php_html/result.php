@@ -12,7 +12,6 @@
 		<div class="container">
 			<section class="title">
 			<p>데이터베이스 (2분반) 6조</p>
-			<!-- <?php echo $_GET['name']?> -->
 			<p>환자 정보 조회</p>
 			</section>
 			<div id="line"></div>
@@ -23,7 +22,7 @@
 						<th>환자 ID</th>
 						<td>51001a</td>
 						<th>성명/성별</th>
-						<td>박보경 / 여</td>
+						<td><?php echo $_GET['name']?> / 여</td>
 					</tr>
 					<tr>
 						<th>주민번호</th>
