@@ -9,7 +9,8 @@
 </head>
 <body>
 	<?php
-		$conn = mysqli_connect("localhost", "root", "", "hospital");
+		// $conn = mysqli_connect("localhost:3306", "web", "web_admin", "hospital"); // 나영님 로컬
+		$conn = mysqli_connect("localhost", "root", "", "hospital"); // 채원 로컬
 		if(mysqli_connect_errno()){
 			echo "Could not connect: ".mysqli_connect_error();
 			exit();
