@@ -1,0 +1,53 @@
+-- Active: 1685262595801@@localhost@3306@hospital
+CREATE TABLE DOCTOR (
+   DSUBJECT char(20),
+   DNAME char(20),
+   DSEX char(20),
+   DNUM char(20),
+   DEMAIL char(20),
+   DTITLE char(20),
+   DID char(20),
+   PRIMARY KEY(DID)
+);
+CREATE TABLE NURSE (
+   NWORK char(20),
+   NNAME char(20),
+   NSEX char(20),
+   NNUM char(20),
+   NEMAIL char(20),
+   NTITLE char(20),
+   NSUBJECT char(20),
+   NID char(20),
+   PRIMARY KEY(NID)
+);
+CREATE TABLE PATIENT (
+   PNAME char(20),
+   PREGNUM char(20),
+   PSEX char(20),
+   PADD char(20),
+   PNUM char(20),
+   PEMAIL char(20),
+   PCAREER char(20),
+   PID char(20),
+   PRIMARY KEY(PID)
+);
+CREATE TABLE CHART (
+   CHARTNUM INT NOT NULL,
+   DID char(20),
+   NID char(20),
+   PID VARCHAR(20),
+   DOCOPINION char(20),
+   DIAGCONTENT char(20),
+   DIAGDATE char(20),
+   PRIMARY KEY(CHARTNUM),
+   FOREIGN KEY(DID) REFERENCES DOCTOR(DID),
+   FOREIGN KEY(NID) REFERENCES NURSE(NID),
+   FOREIGN KEY(PID) REFERENCES PATIENT(PID)
+);
+CREATE TABLE DIAGNOSIS (
+   DIAGID INT NOT NULL,
+   DIAGCONTENT char(20),
+   DIAGDATE char(20),
+   PRIMARY KEY(DIAGID)
+);
+
