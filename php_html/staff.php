@@ -8,6 +8,41 @@
 	<title>데이터베이스 6조: 분석 보고서 의료진 통계 페이지</title>
 </head>
 <body>
+    <?php 
+        $conn = mysqli_connect("localhost:3306", "web", "web_admin", "hospital"); 
+        if(!$conn){
+            echo "Database Connection Error";
+        }
+        else{
+            echo "Database Connection Success";
+        }
+
+        if(mysqli_connect_errno()){
+            echo "Could not connect: ".mysqli_connect_error();
+            exit();
+        }
+
+        mysqli_query($conn, "set session character_set_connection=utf8;");
+        mysqli_query($conn, "set session character_set_results=utf8;");
+        mysqli_query($conn, "set session character_set_client=utf8;");
+
+        $query1 = "SELECT DNAME, COUNT(DNAME) AS CNT FROM hospital.chart as a, hospital.doctor as b WHERE a.DID = b.DID GROUP BY DNAME;";
+        $result1 = mysqli_query($conn, $query1);
+        $result2 = mysqli_query($conn, $query1);
+
+        $query2 = "SELECT NNAME, COUNT(NNAME) AS CNT FROM hospital.chart as a, hospital.nurse as b WHERE a.NID = b.NID GROUP BY NNAME;";
+        $result3 = mysqli_query($conn, $query2);
+        $result4 = mysqli_query($conn, $query2);
+
+        $query3 = "SELECT NWORK, COUNT(NWORK) AS CNT FROM hospital.nurse GROUP BY NWORK;";
+        $result5 = mysqli_query($conn, $query3);
+        $result6 = mysqli_query($conn, $query3);
+
+        $query4 = "SELECT NSUBJECT, COUNT(NSUBJECT) AS CNT FROM hospital.nurse GROUP BY NSUBJECT;";
+        $result7 = mysqli_query($conn, $query4);
+        $result8 = mysqli_query($conn, $query4);
+    ?>
+
 	<div class="wrapper">
 		<div class="container">
 			<section class="title">
@@ -22,83 +57,80 @@
                     <tr>
                         <th colspan="12">의사 1인당 환자 수</th>
                     </tr>   
-					<tr>
-						<th colspan="3">박소현</th>
-                        <th colspan="3">최상현</th>
-                        <th colspan="3">남상진</th>
-                        <th colspan="3">김성우</th>
-					</tr>
-					<tr>
-						<td colspan="3">0명</td>
-                        <td colspan="3">0명</td>
-                        <td colspan="3">0명</td>
-                        <td colspan="3">0명</td>
-					</tr>
+                    <tr>
+                        <?php
+                        while($row = mysqli_fetch_array($result1))
+                        {
+                        ?>
+                                <th colspan="3"><?=$row['DNAME']?></th>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <?php
+                        while($row = mysqli_fetch_array($result2))
+                        {
+                        ?>
+                                <td colspan="3"><?=$row['CNT']?>명</td>
+                        <?php } ?>
+                    </tr>
                     <tr>
                         <th colspan="12">간호사 1인당 환자 수</th>
                     </tr> 
                     <tr>
-                        <th colspan="3">박주희</th>
-                        <th colspan="3">최은영</th>
-                        <th colspan="3">임태연</th>
-                        <th colspan="3">조은혜</th>
-					</tr>
-					<tr>
-                        <td colspan="3">0명</td>
-                        <td colspan="3">0명</td>
-                        <td colspan="3">0명</td>
-                        <td colspan="3">0명</td>
-					</tr>
+                        <?php
+                        while($row = mysqli_fetch_array($result3))
+                        {
+                        ?>
+                                <th colspan="4"><?=$row['NNAME']?></th>
+                        <?php } ?>
+                    </tr>
                     <tr>
-                        <th colspan="3">윤성우</th>
-                        <th colspan="3">윤태우</th>
-                        <th colspan="3">함지아</th>
-                        <th colspan="3">김세연</th>
-					</tr>
-					<tr>
-                        <td colspan="3">0명</td>
-                        <td colspan="3">0명</td>
-                        <td colspan="3">0명</td>
-                        <td colspan="3">0명</td>
-					</tr>
-                    <tr>
-                        <th colspan="3">함채연</th>
-                        <th colspan="3"></th>
-                        <th colspan="3"></th>
-                        <th colspan="3"></th>
-					</tr>
-					<tr>
-                        <td colspan="3">0명</td>
-                        <td colspan="3"></td>
-                        <td colspan="3"></td>
-                        <td colspan="3"></td>
-					</tr>
+                        <?php
+                        while($row = mysqli_fetch_array($result4))
+                        {
+                        ?>
+                                <td colspan="4"><?=$row['CNT']?>명</td>
+                        <?php } ?>
+                    </tr>
+
                     <tr>
                         <th colspan="12">담당업무별 간호사 수</th>
                     </tr> 
                     <tr>
-                        <th colspan="4">환자관리</th>
-                        <th colspan="4">진료접수</th>
-                        <th colspan="4">차트관리</th>
-					</tr>
+                        <?php
+                        while($row = mysqli_fetch_array($result5))
+                        {
+                        ?>
+                                <th colspan="4"><?=$row['NWORK']?></th>
+                        <?php } ?>
+                    </tr>
                     <tr>
-                        <td colspan="4">0명</td>
-                        <td colspan="4">0명</td>
-                        <td colspan="4">0명</td>
-					</tr>
+                        <?php
+                        while($row = mysqli_fetch_array($result6))
+                        {
+                        ?>
+                                <td colspan="4"><?=$row['CNT']?>명</td>
+                        <?php } ?>
+                    </tr>
                     <tr>
                         <th colspan="12">진료과목별 간호사 수</th>
                     </tr> 
                     <tr>
-                        <th colspan="4">이비인후과</th>
-                        <th colspan="4">치과</th>
-                        <th colspan="4">안과</th>
-					</tr>
+                        <?php
+                        while($row = mysqli_fetch_array($result7))
+                        {
+                        ?>
+                                <th colspan="4"><?=$row['NSUBJECT']?></th>
+                        <?php } ?>
+                    </tr>
                     <tr>
-                        <td colspan="4">0명</td>
-                        <td colspan="4">0명</td>
-                        <td colspan="4">0명</td>
-					</tr>
+                        <?php
+                        while($row = mysqli_fetch_array($result8))
+                        {
+                        ?>
+                                <td colspan="4"><?=$row['CNT']?>명</td>
+                        <?php } ?>
+                    </tr>
 				</table>
 			</section>
 		</div>
