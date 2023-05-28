@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="../css/style.css" rel="stylesheet" />
-    <!-- http://localhost/homework2/search.php -->
     <title>데이터베이스 6조</title>
   </head>
   <body>
@@ -23,20 +22,5 @@
         </form>
       </div>
     </div>
-    <!-- <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // 선택자 선언
-        const container = document.querySelector(".container");
-        const btn = document.querySelector(".button");
-        const input = document.querySelector(".input");
-  
-        // 조회 버튼 누르면 layout 변경
-        btn.addEventListener("click", () => {
-          event.preventDefault();
-          // name = input.value;
-          container.classList.toggle("active");
-        });
-      });
-    </script> -->
   </body>
 </html>
