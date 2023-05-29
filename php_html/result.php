@@ -93,8 +93,8 @@
 					<tr>
                         <th>담당 의사 / ID</th>
                         <td><?=$row['DNAME']?> / <?=$row['DID']?></td>
-                        <th>담당 간호사</th>
-                        <td><?=$row['NNAME']?> /<?=$row['NID']?></td>
+                        <th>담당 간호사 / ID</th>
+                        <td><?=$row['NNAME']?> / <?=$row['NID']?></td>
                     </tr>
 					<tr>
 						<th colspan="4">진료 내용</th>
