@@ -17,17 +17,28 @@
 		}
 		// 입력 받은 이름으로 환자 정보 가져오기
 		$name = $_GET['name'];
-		$query1 = "SELECT * FROM PATIENT WHERE PNAME = '$name'";
+		$query1 = 
+		"SELECT
+			P.*, D.DID, D.DNAME, N.NID, N.NNAME
+		FROM
+			PATIENT AS P
+			JOIN CHART AS C ON P.PID = C.PID
+			JOIN DOCTOR AS D ON C.DID = D.DID
+			JOIN NURSE AS N ON C.NID = N.NID
+		WHERE
+			P.PNAME = '$name'";
 		$result1 = mysqli_query($conn, $query1);
 		$result2 = mysqli_query($conn, $query1);
 		// 환자의 진료 차트 정보 가져오기
 		$query2 = 
-		"SELECT CONCAT(REPLACE(REPLACE(C.DIAGDATE, '월', ''), '일', ''), LPAD(C.CHARTNUM, 2, '0')) AS DIAGID, 
-			C.DIAGDATE, C.DID, D.DNAME,  C.NID, N.NNAME, C.DIAGCONTENT, C.DOCOPINION FROM CHART AS C
+		"SELECT
+			DI.DIAGID, DI.DIAGDATE, DI.DIAGCONTENT, C.DOCOPINION
+		FROM
+			CHART AS C
+			JOIN DIAGNOSIS AS DI ON C.DIAGID = DI.DIAGID
 			JOIN PATIENT AS P ON C.PID = P.PID
-			LEFT JOIN DOCTOR AS D ON C.DID = D.DID
-			LEFT JOIN NURSE AS N ON C.NID = N.NID
-		WHERE P.PNAME = '$name'";
+		WHERE
+			P.PNAME = '$name'";
 		$result3 = mysqli_query($conn, $query2);
 		$result4 = mysqli_query($conn, $query2);
 	?>
@@ -53,6 +64,12 @@
 						<th>성명/성별</th>
 						<td><?=$name?> / <?=$row['PSEX']?></td>
 					</tr>
+					<tr>
+                        <th>담당 의사 (ID)</th>
+                        <td><?=$row['DNAME']?>  (<?=$row['DID']?>)</td>
+                        <th>담당 간호사 (ID)</th>
+                        <td><?=$row['NNAME']?>  (<?=$row['NID']?>)</td>
+                    </tr>
 					<tr>
 						<th>주민번호</th>
 						<td><?=$row['PREGNUM']?></td>
@@ -90,12 +107,6 @@
 						<th>진료 날짜</th>
 						<td><?=$row['DIAGDATE']?></td>
 					</tr>
-					<tr>
-                        <th>담당 의사 / ID</th>
-                        <td><?=$row['DNAME']?> / <?=$row['DID']?></td>
-                        <th>담당 간호사 / ID</th>
-                        <td><?=$row['NNAME']?> / <?=$row['NID']?></td>
-                    </tr>
 					<tr>
 						<th colspan="4">진료 내용</th>
 						<tr>
